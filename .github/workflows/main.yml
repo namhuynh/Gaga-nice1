@@ -5,17 +5,26 @@ on:
   pull_request:
     branches: [ "main" ]
 jobs:
-  build:
-    runs-on: self-hosted
+  job1:
+    runs-on: ubuntu-latest
     steps:
       - name: Run a one-line script
-        run: echo Hello, world!
+        run: |
+          echo "Build running"
+          sleep 30
       - name: second step or task
         run: |
-          echo "hello from step 2"
-          sleep 10
-      - name: create a file and list it
+          echo "Build completed"
+          sleep 30
+  job2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run a one-line script
         run: |
-          touch gagan.txt
-          ls -l
-          sleep 10
+          echo "Test running"
+          sleep 30
+      - name: second step or task
+        run: |
+          echo "Test completed"
+          sleep 30 
+
