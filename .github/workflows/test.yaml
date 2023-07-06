@@ -1,14 +1,21 @@
+name: CI
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+env:
+  home: "home1"
 jobs:
-  condition-run:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: condition 1
-        if: runner.os == 'Windows'
-        run: echo "The operating system on the runner is $env:RUNNER_OS."
-      - name: condition 2
-        if: runner.os != 'Windows'
-        run: echo "The operating system on the runner is not Windows, it's $RUNNER_OS."
+      - name: Run a one-line script
+        run: echo Hello, world!
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo ${{ secrets.password }}
+          echo ${{ vars.username }}
+      - name: Create a file
+        run: echo $home
