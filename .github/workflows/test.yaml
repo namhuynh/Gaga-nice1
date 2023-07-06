@@ -1,21 +1,18 @@
-name: Variable
+name: deploy
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-env:
-  home: "home1"
+    branches:
+      - main
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  deploy:
+    name: deploy
+    runs-on: self-hosted
     steps:
-      - name: Run a one-line script
-        run: echo Hello, world!
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo ${{ secrets.password }}
-          echo ${{ vars.username }}
-      - name: Create a file
-        run: echo $home
+      - name: Checkout code 
+        uses: actions/checkout@v3
+      - name: kube-deploy
+        run: kubectl apply -f deploy.yaml
+      - name: list deployments
+        run: kubectl get deployments
+      - name: list services
+        run: kubectl get services
