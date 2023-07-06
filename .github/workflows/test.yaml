@@ -1,4 +1,4 @@
-name: CI
+name: Variable
 on:
   push:
     branches: [ "main" ]
